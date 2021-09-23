@@ -1,0 +1,16 @@
+{
+  "type": "module",
+  "name": "javascript-cmd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "main": "node ./script/index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
