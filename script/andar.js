@@ -7,7 +7,7 @@ import searchFunction from '../functions/searchFunction.js';
 import { battle } from '../functions/battleFunctions/battleFunction.js';
 import tableStatus from '../functions/tableFunction.js';
 
-let { optionBack, escolha, andarMenu, floor, j} = globalVars()
+let { optionBack, escolha, andarMenu, floor, j } = globalVars()
 floor = 1
 let i = 1
 

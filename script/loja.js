@@ -7,10 +7,16 @@ let {optionBack, escolha} = globalVars()
 let espada = 50
 let escudo = 50 
 let armadura = 50
+let healPotion = 150
+let strPotion = 150
+let invPotion = 150
+let superPotion = 900
 let coinCounter = 0
+
 export default async function loja(player, primeiraCompra) {
     
-    let lojaEquipamento1 = [`${espada} Moedas - Espada (+1 ATK)`, `${armadura} Moedas - Armadura (+2 HP)`, `${escudo} Moedas - Escudo (+1 DEF)`, "Sair"]
+    let lojaEquipamento1 = [`${espada} Moedas - Espada (+1 ATK)`, `${armadura} Moedas - Armadura (+2 HP)`, `${escudo} Moedas - Escudo (+1 DEF)`, "Pocoes", "Sair"]
+    let lojaPocoes = [`${healPotion} Moedas - Pocao de cura (Cura 33% da sua vida total)`, `${strPotion} Moedas - Pocao de forca (Multiplica sua forca por 1.5x por 2 turnos)`, `${invPotion} Moedas - Pocao de invencibilidade (Voce nao tomara dano no proximo ataque)`, `${superPotion} Moedas - Super pocao (Status de todas as pocoes 2x (66% de cura, 3x de dano por 2 turnos e 2 turnos sem tomar dano))`, "Voltar"]
     
     console.clear()
     tableStatus(player)
@@ -101,6 +107,104 @@ export default async function loja(player, primeiraCompra) {
             break;
 
         case 3:
+
+            (function potions(player, primeiraCompra) {
+                escolha = readlineSync.keyInSelect(lojaPocoes, 'Escolha uma dessas oopcoes', { cancel:false })
+                switch (escolha) {
+                    case 0:
+                        
+                        await breakWords("Voce deseja comprar POCAO DE CURA?")
+                        escolha = readlineSync.keyInSelect(optionBack, "Escolha uma destas opcoes:", { cancel: false })
+                        switch (escolha) {
+                            case 0:
+                                if (player.dinheiro < healPotion) {
+                                    await breakWords("Dinheiro insuficiente!\nPressione qualquer botao para voltar...")
+                                    readlineSync.keyInPause("")
+                                    console.clear()
+                                    return potions(player, primeiraCompra)
+                                } else {
+                                    player.dinheiro -= healPotion
+                                    coinCounter += healPotion
+                                    player.inv.healPotion ++
+                                    healPotion += 50 + (player.nivel*10)
+                                    await breakWords("Parabens! Voce adquiriu POCAO DE CURA\n\nInventario: " + player.inv + "\nDinheiro total: " + player.dinheiro + "\nPressione qualquer botao para continuar...")
+                                    readlineSync.keyInPause("")
+                                    console.clear()
+                                    return potions(player, primeiraCompra)
+                                }
+
+                            case 1:
+                                console.clear()
+                                return potions(player, primeiraCompra)
+                        }
+
+                        break;
+                
+                    case 1:
+
+                        await breakWords("Voce deseja comprar POCAO DE FORCA?")
+                        escolha = readlineSync.keyInSelect(optionBack, "Escolha uma destas opcoes:", { cancel: false })
+                        switch (escolha) {
+                            case 0:
+                                if (player.dinheiro < strPotion) {
+                                    await breakWords("Dinheiro insuficiente!\nPressione qualquer botao para voltar...")
+                                    readlineSync.keyInPause("")
+                                    console.clear()
+                                    return potions(player, primeiraCompra)
+                                } else {
+                                    player.dinheiro -= strPotion
+                                    coinCounter += strPotion
+                                    player.inv.strPotion ++
+                                    strPotion += 50 + (player.nivel*10)
+                                    await breakWords("Parabens! Voce adquiriu POCAO DE FORCA\n\nInventario: " + player.inv + "\nDinheiro total: " + player.dinheiro + "\nPressione qualquer botao para continuar...")
+                                    readlineSync.keyInPause("")
+                                    console.clear()
+                                    return potions(player, primeiraCompra)
+                                }
+
+                            case 1:
+                                console.clear()
+                                return potions(player, primeiraCompra)
+                        }
+
+
+                        break;
+                    case 2:
+                
+                        await breakWords("Voce deseja comprar POCAO DE INVENCIBILIDADE?")
+                        escolha = readlineSync.keyInSelect(optionBack, "Escolha uma destas opcoes:", { cancel: false })
+                        switch (escolha) {
+                            case 0:
+                                if (player.dinheiro < invPotion) {
+                                    await breakWords("Dinheiro insuficiente!\nPressione qualquer botao para voltar...")
+                                    readlineSync.keyInPause("")
+                                    console.clear()
+                                    return loja(player, primeiraCompra)
+                                } else {
+                                    player.dinheiro -= healPotion
+                                    coinCounter += healPotion
+                                    player.inv.healPotion ++
+                                    healPotion += 50 + (player.nivel*10)
+                                    await breakWords("Parabens! Voce adquiriu POCAO DE CURA\n\nInventario: " + player.inv + "\nDinheiro total: " + player.dinheiro + "\nPressione qualquer botao para continuar...")
+                                    readlineSync.keyInPause("")
+                                    console.clear()
+                                    return potions(player, primeiraCompra)
+                                }
+
+                            case 1:
+                                console.clear()
+                                return potions(player, primeiraCompra)
+                        }
+
+
+                        break;
+                    case 3:    
+                        return andar(player, primeiraCompra)
+                        break;
+                }
+            })()
+
+        case 4:
             if (primeiraCompra == false) {
                 if (player.dinheiro < 100) {
                     await breakWords("Sair da loja?")

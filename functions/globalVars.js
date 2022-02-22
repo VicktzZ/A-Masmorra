@@ -60,6 +60,12 @@ export default () => {
             amount: 0,
             limit: null 
         },
+        inv: {
+            healpotion: null,
+            strpotion: null,
+            invpotion: null,
+            superpotion: null
+        },
         dinheiro: 100 
     }
     
