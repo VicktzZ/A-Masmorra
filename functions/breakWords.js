@@ -2,7 +2,7 @@ function pausa(escritaPausada) {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve();
-    }, 49.7 * escritaPausada.length);
+    }, 40 * escritaPausada.length);
 
     let i = 0
     let arr = []
@@ -25,7 +25,7 @@ function pausa(escritaPausada) {
         i++
       }
 
-    }, 35);
+    }, 30);
 
   });
 }

@@ -6,7 +6,7 @@ import andar from '../script/andar.js'
 
 
 let codigoAndar = ""
-let { optionBack, escolha} = globalVars()
+let { optionBack, escolha, floor } = globalVars()
 
 export default async function checkpoint(player, primeiraCompra) {          
     console.clear()
@@ -14,33 +14,48 @@ export default async function checkpoint(player, primeiraCompra) {
     console.log("CHEKPOINT")
     console.log("=========\n")
     console.log('E aqui onde voce pode voltar a onde estava sem precisar percorrer o caminho todo novamente!\nDigite a senha que lhe foi dada no andar em que parou para voltar a este mesmo andar do jeito que voce estava!\n(Escreva "voltar" se desejar voltar ao menu principal.)')
-    codigoAndar = readlineSync.question("\nDigite o codigo do andar ou voltar se desejar voltar ao menu principal: ", {limit: ['andarNivel01', 'voltar', 'Voltar'], limitMessage: '$<lastInput> nao esta disponivel, tente novamente.'})
+    codigoAndar = readlineSync.question('\nDigite o codigo do andar ou "voltar" se desejar voltar ao menu principal: ', {limit: ['andarNivel01', 'andarNivel02', 'andarNivel03', 'voltar', 'Voltar'], limitMessage: '$<lastInput> nao esta disponivel, tente novamente.'})
     
-    if (codigoAndar === "voltar" || codigoAndar === "Voltar") {
+    if (codigoAndar === "voltar") {
       return main(player, primeiraCompra)
     } else {
-      if (codigoAndar == "andarNivel01" || codigoAndar == "andarnivel01" || codigoAndar == "Andarnivel01") {
+
+      if (codigoAndar == "andarNivel01") {
         await breakWords("Deseja avancar para o 1º Andar?")
         escolha = readlineSync.keyInSelect(optionBack, "Escolha uma destas opcoes", {cancel: false})
         switch (escolha) {
           case 0:
-            andar(player, primeiraCompra)
+            floor = 1
+            andar(player, primeiraCompra, 1)
             break;
                 
           case 1:
             return checkpoint(player, primeiraCompra)
         }
-      } else if (codigoAndar == "andarNivel02" || codigoAndar == "andarnivel02" || codigoAndar == "Andarnivel02") {
+      } else if (codigoAndar == "andarNivel02") {
         await breakWords("Deseja avancar para o 2º Andar?")
         escolha = readlineSync.keyInSelect(optionBack, "Escolha uma destas opcoes", {cancel: false})
         switch (escolha) {
           case 0:
-            andar(player, primeiraCompra)
+            floor = 2
+            andar(player, primeiraCompra, 2)
+            break;
+          case 1:
+            return checkpoint(player, primeiraCompra)
+        }
+      } else if (codigoAndar == "andarNivel03") {
+        await breakWords("Deseja avancar para o 3º Andar?")
+        escolha = readlineSync.keyInSelect(optionBack, "Escolha uma destas opcoes", {cancel: false})
+        switch (escolha) {
+          case 0:
+            floor = 3
+            andar(player, primeiraCompra, 3)
             break;
                 
           case 1:
             return checkpoint(player, primeiraCompra)
         }
       }
+
     }
   }

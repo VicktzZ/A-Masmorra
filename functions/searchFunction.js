@@ -1,9 +1,10 @@
 import breakWords from './breakWords.js'
 import { battleFunction } from './battleFunctions/battleFunction.js'
 import chestFound from './chestFound.js';
+import eventos from './eventos.js';
 
 
-export default async function searchFunction(player, primeiraCompra) {
+export default async function searchFunction(player, primeiraCompra, floor, j) {
     
     let randomNumber = Math.floor(Math.random() * 10) + 1
 
@@ -14,14 +15,13 @@ export default async function searchFunction(player, primeiraCompra) {
             await breakWords("Procurando...")
         }, 500);
     }, 500);
-
     setTimeout(async () => {
-        if (randomNumber >= 4) {
-            await battleFunction(player, primeiraCompra)
+        if (randomNumber >= 5) {
+            await battleFunction(player, primeiraCompra, floor, j)
+        } else if (randomNumber >= 3) {
+            await chestFound(player, primeiraCompra)
         } else {
-            if (randomNumber <= 3) {
-                await chestFound(player, primeiraCompra)
-            }
+            await eventos(player, primeiraCompra, floor)
         }
     }, 3200);
 }

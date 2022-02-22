@@ -18,7 +18,7 @@ export default async function jogo(player, primeiraCompra) {
       await Escolha1()
       break;
     case 1:
-      await breakWords('"Eu sou Hella. Eu sou uma nobre guerreira e eu estou aqui para pegar tesouros! todavia, eu vim preparada para qualquer tipo de ocasiao.\nMas voce nao me parece preparado!"')
+      await breakWords('"Eu sou Hella. Sou uma nobre guerreira e eu estou aqui para pegar tesouros! todavia, eu vim preparada para qualquer tipo de ocasiao.\nMas voce nao me parece preparado!"')
       await Escolha1()
       break;
 
@@ -69,12 +69,16 @@ export default async function jogo(player, primeiraCompra) {
 
   async function gameContinue() {
 
-    await breakWords('"Bom, se voce insite entao tudo bem! Antes disso, precisamos comprar alguns equipamentos para voce, ou voce nao vai durar 5 minutos aqui dentro.\nA proposito, Qual o seu nome?"')
+    await breakWords('"Bom, se voce insiste entao tudo bem! Antes disso, precisamos comprar alguns equipamentos para voce ou nao vai durar 5 minutos aqui dentro.\nA proposito, Qual o seu nome?"')
     player.nome = readlineSync.question("\nDigite aqui como deseja ser chamado: ")
 
     await breakWords('"Muito bem ' + player.nome + '! E qual a sua idade?"')
-    player.idade = readlineSync.questionInt("\nDigite aqui a sua idade: ", { limitMessage: '$<lastInput> <-- por favor, insira um numero inteiro.' })
-    if (player.idade < 14) {
+    player.idade = readlineSync.questionInt("\nDigite aqui a sua idade: ", { limit: '', limitMessage: 'Ei! Me conte sua idade!' })
+    
+    if (player.idade == 0) {
+      await breakWords('"Como assim?! Voce nao tem nem um ano de idade?! Como isso e possivel?! B-bom... Acho que se voce for forte e inteligente o bastante voce consegue sobreviver... V-vamos lá entao..."\nPressione qualquer botao para continuar...')
+      readlineSync.keyInPause("")
+    } else if (player.idade < 14) {
       await breakWords('"Nossa mas você ainda é só uma criança! Tem certeza que você está apto para entrar nessa masmorra? Bom, se você realmente quiser... Entao tudo bem! Me siga, Vamos la!"\nPressione qualquer botao para continuar...')
       readlineSync.keyInPause("")
     } else {
