@@ -129,7 +129,7 @@ async function puzzle(player, primeiraCompra) {
         let randomArr = Math.floor(Math.random() * 3)
         let value
         let arrOptions = [
-            'x + x + x = 60\nx + y + y = 30\ny - z = 3\nx + y * z = ?',
+            'x + x + x = 60\nx + y + y = 30\ny - z = 3\n(x + y) * z = ?',
             'x + (x/2) + x = 15\ny - (y/2) + x = 10\nz + z - (z/2) = 6\n(x/2) + ((x/2) + (z/2)) * (y/2) = ?',
             'Se um triângulo retângulo apresenta 3 cm e 4 cm como medidas dos catetos, qual a hipotenusa desse triângulo?\nFormula: a² = b² + c²'
         ]
@@ -140,7 +140,7 @@ async function puzzle(player, primeiraCompra) {
          
             if (randomArr == 0) {
 
-                if (value == 110) {
+                if (value == 50) {
                     await conseguiu(player, primeiraCompra)
                 } else {
                     await falhou(player, primeiraCompra)

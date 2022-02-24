@@ -156,7 +156,6 @@ export async function battle(player, primeiraCompra, i, j, event_number) {
         inimigos[k][l].vida = Math.floor(globalVars().inimigos[k][l].vida*((player.nivel+1)*(0.5)))
         inimigos[k][l].dinheiro = globalVars().inimigos[k][l].dinheiro + (player.nivel*5) 
         inimigos[k][l].xp = Math.floor(globalVars().inimigos[k][l].xp + player.nivel*2)
-        inimigos[k][l].ataque += globalVars().inimigos[k][l].ataque + player.nivel
       }
     }
     player.dinheiro += inimigos[i][j].dinheiro

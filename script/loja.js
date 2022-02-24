@@ -108,7 +108,7 @@ export default async function loja(player, primeiraCompra) {
 
         case 3:
 
-            (function potions(player, primeiraCompra) {
+            (async function potions(player, primeiraCompra) {
                 escolha = readlineSync.keyInSelect(lojaPocoes, 'Escolha uma dessas oopcoes', { cancel:false })
                 switch (escolha) {
                     case 0:
